@@ -1,3 +1,4 @@
+
 # 💬 Gray Chat
 
 A real-time chat application with support for direct messages and group conversations, built with vanilla JavaScript and powered by Supabase.
@@ -250,7 +251,7 @@ chat-app/
 
 ## 📸 Screenshots
 
-> _Add screenshots here once the app is live._
+<img width="1024" height="722" alt="20260405_09464490" src="https://github.com/user-attachments/assets/d733b258-b678-4964-8f27-becf34176233" />
 
 ---
 
