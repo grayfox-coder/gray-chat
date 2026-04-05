@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gray Chat</title>
+  <meta name="description" content="Gray Chat — secure real-time messaging by GreyFox.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+  <!-- ══ LOGIN SCREEN ══════════════════════════════════════════════════ -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-wrap">
+      <div class="login-box">
+        <div class="login-logo">
+          <div class="icon">
+            <img src="assets/logo.png" alt="Gray Chat Logo">
+          </div>
+          <h1 id="authTitle">Welcome back</h1>
+          <p id="authSubtitle">Sign in to Gray Chat</p>
+        </div>
+<pre class=code>        &lt;div class=&quot;field&quot; id=&quot;usernameField&quot; style=&quot;display:none&quot;&gt;
+          &lt;label&gt;Display Username&lt;/label&gt;
+          &lt;input type=&quot;text&quot; id=&quot;displayUsernameInput&quot; placeholder=&quot;How others see you&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label&gt;Email Address&lt;/label&gt;
+          &lt;input type=&quot;email&quot; id=&quot;usernameInput&quot; placeholder=&quot;Enter email&quot; autocomplete=&quot;email&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label&gt;Password&lt;/label&gt;
+          &lt;input type=&quot;password&quot; id=&quot;passwordInput&quot; placeholder=&quot;Enter password&quot; autocomplete=&quot;current-password&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot; id=&quot;confirmField&quot; style=&quot;display:none&quot;&gt;
+          &lt;label&gt;Confirm password&lt;/label&gt;
+          &lt;input type=&quot;password&quot; id=&quot;confirmInput&quot; placeholder=&quot;Confirm password&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot; style=&quot;display:flex; align-items:center; gap:8px; margin-bottom:20px;&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; id=&quot;rememberMe&quot; style=&quot;width:auto; accent-color:var(--accent);&quot;&gt;
+          &lt;label for=&quot;rememberMe&quot; style=&quot;margin-bottom:0; cursor:pointer; text-transform:none; font-size:13px;&quot;&gt;Remember
+            my email&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;button class=&quot;btn-primary&quot; id=&quot;loginBtn&quot;&gt;Sign in&lt;/button&gt;
+        &lt;div class=&quot;login-error&quot; id=&quot;loginError&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;auth-footer&quot;&gt;
+          &lt;span id=&quot;toggleText&quot;&gt;Don&#39;t have an account?&lt;/span&gt;
+          &lt;button id=&quot;toggleAuthBtn&quot;&gt;Sign up&lt;/button&gt;
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;</pre>
+  <!-- ══ CHAT SCREEN ════════════════════════════════════════════════════ -->
+  <div id="chatScreen" class="screen">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="chat-wrap">
+<pre class=code>      &lt;!-- SIDEBAR --&gt;
+      &lt;div class=&quot;sidebar open&quot; id=&quot;sidebar&quot;&gt;
+
+        &lt;!-- Brand + Search --&gt;
+        &lt;div class=&quot;sidebar-top&quot;&gt;
+          &lt;div class=&quot;brand-row&quot;&gt;
+            &lt;div class=&quot;brand-logo&quot; style=&quot;background:transparent; overflow:hidden; border-radius:50%;&quot;&gt;
+              &lt;img src=&quot;logo.png&quot; alt=&quot;Gray Chat&quot; style=&quot;width:30px; height:30px; object-fit:cover; border-radius:50%;&quot;&gt;
+            &lt;/div&gt;
+            &lt;span class=&quot;brand-name&quot;&gt;Gray Chat&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;search-box&quot;&gt;
+            &lt;div style=&quot;position:relative; flex:1;&quot;&gt;
+              &lt;svg class=&quot;search-icon&quot; width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;
+                stroke-width=&quot;2.2&quot;&gt;
+                &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot; /&gt;
+                &lt;path d=&quot;M21 21l-4.35-4.35&quot; /&gt;
+              &lt;/svg&gt;
+              &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;Search users or groups...&quot;&gt;
+            &lt;/div&gt;
+            &lt;button class=&quot;btn-icon&quot; id=&quot;openGroupModalBtn&quot; title=&quot;Create Group&quot;&gt;+&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Current user --&gt;
+        &lt;div class=&quot;user-block&quot;&gt;
+          &lt;div class=&quot;avatar&quot; id=&quot;userAvatar&quot;&gt;?&lt;/div&gt;
+          &lt;div class=&quot;user-info&quot;&gt;
+            &lt;div class=&quot;username&quot; id=&quot;currentUsername&quot;&gt;Loading...&lt;/div&gt;
+            &lt;div class=&quot;status-wrap&quot;&gt;
+              &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;Online
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;button class=&quot;settings-btn&quot; id=&quot;logoutBtn&quot; title=&quot;Logout&quot;&gt;
+            &lt;svg width=&quot;15&quot; height=&quot;15&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+              &lt;path d=&quot;M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;theme-selector&quot;&gt;
+          &lt;button class=&quot;theme-opt&quot; id=&quot;theme-gray&quot;&gt;Gray&lt;/button&gt;
+          &lt;button class=&quot;theme-opt&quot; id=&quot;theme-dark&quot;&gt;Dark&lt;/button&gt;
+          &lt;button class=&quot;theme-opt&quot; id=&quot;theme-white&quot;&gt;White&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;section-label&quot;&gt;Conversations&lt;/div&gt;
+        &lt;div class=&quot;conv-list&quot; id=&quot;convList&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- MAIN --&gt;
+      &lt;div class=&quot;main&quot;&gt;
+        &lt;div class=&quot;chat-topbar&quot;&gt;
+          &lt;button class=&quot;btn-icon&quot; id=&quot;hamBtn&quot; style=&quot;display:none&quot;&gt;
+            &lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+              &lt;line x1=&quot;3&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;&gt;&lt;/line&gt;
+              &lt;line x1=&quot;3&quot; y1=&quot;6&quot; x2=&quot;21&quot; y2=&quot;6&quot;&gt;&lt;/line&gt;
+              &lt;line x1=&quot;3&quot; y1=&quot;18&quot; x2=&quot;21&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;button class=&quot;btn-icon&quot; id=&quot;backBtn&quot; style=&quot;display:none&quot;&gt;←&lt;/button&gt;
+          &lt;div class=&quot;avatar-sm&quot; id=&quot;chatAvatar&quot;&gt;💬&lt;/div&gt;
+          &lt;div class=&quot;chat-info&quot;&gt;
+            &lt;div class=&quot;chat-name&quot; id=&quot;chatName&quot;&gt;Select a conversation&lt;/div&gt;
+            &lt;div class=&quot;chat-members&quot; id=&quot;chatMembers&quot;&gt;Choose a chat from the sidebar&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;placeholderState&quot; class=&quot;placeholder-state&quot;&gt;
+          &lt;div class=&quot;big-icon&quot;&gt;💬&lt;/div&gt;
+          &lt;p&gt;Select a conversation to start chatting&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;msgsWrap&quot; class=&quot;msgs-wrap&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;input-bar&quot;&gt;
+          &lt;div class=&quot;input-wrap&quot;&gt;
+            &lt;input type=&quot;text&quot; id=&quot;msgInput&quot; placeholder=&quot;Type a message…&quot; disabled&gt;
+          &lt;/div&gt;
+          &lt;button class=&quot;btn-send&quot; id=&quot;sendBtn&quot; disabled&gt;
+            &lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot;&gt;
+              &lt;line x1=&quot;22&quot; y1=&quot;2&quot; x2=&quot;11&quot; y2=&quot;13&quot; /&gt;
+              &lt;polygon points=&quot;22 2 15 22 11 13 2 9 22 2&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;</pre>
+  <!-- Create Group Modal -->
+  <div id="createGroupModal" class="modal-overlay">
+    <div class="modal">
+      <h3>Create Group Chat</h3>
+      <div class="field">
+        <label>Group Name</label>
+        <input type="text" id="groupNameInput" placeholder="Enter group name...">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" id="cancelGroupBtn">Cancel</button>
+        <button class="btn-modal-create" id="confirmGroupBtn">Create</button>
+      </div>
+    </div>
+  </div>
+  <div id="toastContainer"></div>
+  <script src="js/config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
