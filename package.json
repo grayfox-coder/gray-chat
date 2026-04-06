@@ -4,8 +4,8 @@
   "description": "A real-time chat application with support for direct messages and group conversations, built with vanilla JavaScript and powered by Supabase.",
   "main": "index.js",
   "scripts": {
-    "build": "pretext",
-    "dev": "pretext --watch"
+    "build": "npx pretext",
+    "dev": "npx pretext --watch"
   },
   "keywords": [],
   "author": "",

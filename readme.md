@@ -274,3 +274,32 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 <p align="center">Made with ❤️ by <a href="https://github.com/grayfox-coder">grayfox-coder</a></p>
+git add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git pushgit add vercel.json
+git commit -m "Add Vercel config"
+git push
