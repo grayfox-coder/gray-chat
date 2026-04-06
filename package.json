@@ -13,6 +13,7 @@
   "type": "commonjs",
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
-    "pretext": "^0.3.0"
+    "pretext": "^0.3.0",
+    "pretext-plugin-html": "^0.3.0"
   }
 }
